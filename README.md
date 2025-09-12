@@ -3,9 +3,13 @@ Snipe-IT Deployment Ansible Role
 📑 Table of Contents
 
 🔄 Deployment Flow
+
 🚀 Features
+
 📋 Requirements
+
 Ansible Version
+
 Collections
 Target Host Requirements
 Network Requirements
