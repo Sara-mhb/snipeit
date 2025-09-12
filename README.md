@@ -46,7 +46,9 @@ Data persistence through bind mounts
 Configurable environment variables for customization
 
 🔄 Deployment Flow
+```mermaid
 flowchart TD
+
     START([🚀 Start Snipe-IT Deployment]) --> ASSERT_START[🔍 Validate Variables]
     
     %% Assertion Phase
@@ -94,6 +96,7 @@ flowchart TD
     class APP_KEY,DB_SETUP,DB_USERS dbPhase
     class CONTAINER_DEPLOY,NETWORK_SETUP,MOUNT_SETUP,ENV_CONFIG,PORT_MAPPING,START_CONTAINER containerPhase
     class START,COMPLETE startEnd
+```
 
 🚀 Features
 
@@ -275,6 +278,7 @@ Optional for custom collation
 
 
 🔄 Deployment Architecture
+```mermaid
 sequenceDiagram
     participant C as Ansible Controller
     participant S as Snipe-IT Server
@@ -290,6 +294,7 @@ sequenceDiagram
     S->>M: Connect to MySQL (database_net)
     C->>S: Map port 8080
     S->>C: Snipe-IT accessible
+```
 
 Architecture Notes:
 
