@@ -1,0 +1,36 @@
+---
+# defaults file for snipeit
+
+snipeit_server_container_image: 'artifacts.vaslapp.com/share/vasl/snipeit'
+snipeit_server_container_image_tag: 'v8.2.1'
+snipeit_server_container_name: "snipeit-server"
+snipeit_server_container: {}
+snipeit_server_container_base_dir: "/mnt/containers"
+snipeit_server_container_recreate: false
+
+# User settings
+_snipeit_server_user: snipeit
+_snipeit_server_group: snipeit
+
+# Storage
+snipeit_server_container_base_dir: "/mnt/containers"
+snipeit_server_container_recreate: false
+
+# Generate this value using: docker run --rm snipe/snipe-it:v8.2.1-alpine
+snipeit_app_key: "base64:LySUxE/6QbccxeXFDfcV5MYDgzLcxDPQSOMp3xisRjY="
+snipeit_host_port: 8080
+
+
+# MySQL connection settings  
+mysql_host: 'mysql'   # container name
+mysql_port: 3306
+mysql_admin_user: 'mysql'
+mysql_admin_password: '12345'  # Secure this with vault 
+
+# Snipe-IT database settings
+snipeit_db_name: 'snipeit_db'
+snipeit_db_user: 'snipeit_user'
+snipeit_db_password: '12345'   
+snipeit_db_encoding: 'utf8mb4'
+snipeit_db_collation: 'utf8mb4_unicode_ci'
+

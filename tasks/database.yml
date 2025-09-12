@@ -1,0 +1,21 @@
+---
+# database creates in mysql-database when these variables are passed
+
+- name: Define Snipe-IT database
+  ansible.builtin.set_fact:
+    mysql_databases:
+      - name: '{{ snipeit_db_name }}'
+        encoding: '{{ snipeit_db_encoding }}'
+        collation: '{{ snipeit_db_collation }}'
+  tags: db
+
+- name: Define Snipe-IT database user
+  ansible.builtin.set_fact:
+    mysql_users:
+      - name: '{{ snipeit_db_user }}'
+        password: '{{ snipeit_db_password }}'
+        host: '{{ mysql_host }}'
+        priv: '{{ snipeit_db_name }}.*:ALL'
+        state: present
+  tags: db
+

@@ -1,0 +1,40 @@
+---
+# _snipeit_server_user: snipeit
+# _snipeit_server_group: snipeit
+
+snipeit_server_container:
+- name: Run snipeit container
+  community.docker.docker_container:
+    name: "{{ snipeit_server_container_name }}"
+    image: "{{ snipeit_server_container_image }}"
+    state: started
+    user: "{{ _snipeit_server_user }}:{{ _snipeit_server_group }}" 
+    published_ports:
+      - "{{ snipeit_host_port }}:80"    #8080:80
+    restart_policy: "unless-stopped"
+    
+    env:
+      APP_KEY: "{{ snipeit_app_key }}"
+      APP_URL: "http://localhost:{{ snipeit_host_port }}"
+      DB_CONNECTION: "mysql"
+      DB_HOST: "{{ mysql_host }}"      # MySQL container name
+      DB_DATABASE: "{{ snipeit_db_name }}"
+      DB_USERNAME: "{{ snipeit_db_user }}"
+      DB_PASSWORD: "{{ snipeit_db_password }}"
+      DB_PORT: "{{ mysql_port }}"       #3306
+    
+    networks:
+      - name: database_net            
+    
+    mounts:
+      - type: bind
+        source: "{{ snipeit_server_container_base_dir }}/{{ snipeit_server_container_name }}"
+        target: /var/lib/snipeit
+        read_only: false
+
+    recreate: "{{ snipeit_server_container_recreate }}"
+
+
+
+
+

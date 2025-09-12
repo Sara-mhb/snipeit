@@ -1,0 +1,9 @@
+---
+- name: Generate APP_KEY for Snipe-IT
+  shell: openssl rand -base64 32
+  register: generated_key
+  run_once: true
+
+- name: Set APP_KEY variable
+  set_fact:
+    snipeit_app_key: "base64:{{ generated_key.stdout }}"

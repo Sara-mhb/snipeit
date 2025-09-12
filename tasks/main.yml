@@ -1,0 +1,24 @@
+---
+
+- name: Include install tasks
+  ansible.builtin.import_tasks: install.yml
+  tags: install
+
+- name: Include app key generation
+  ansible.builtin.import_tasks: app_key.yml
+
+- name: Include database setup
+  ansible.builtin.import_tasks: database.yml
+  tags: db
+
+- name: Include user setup
+  ansible.builtin.import_tasks: users.yml
+  tags: users
+
+- name: Include container deployment
+  ansible.builtin.import_tasks: vars/container.yml
+  tags: container
+
+
+
+ 

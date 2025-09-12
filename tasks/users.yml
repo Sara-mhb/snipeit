@@ -1,0 +1,25 @@
+---
+- name: Create snipeit group
+  ansible.builtin.group:
+    name: "{{ _snipeit_server_group }}"
+    system: true
+  become: true
+
+- name: Create snipeit user
+  ansible.builtin.user:
+    name: "{{ _snipeit_server_user }}"
+    group: "{{ _snipeit_server_group }}"
+    system: true
+    create_home: false
+    shell: /bin/false
+  become: true
+
+- name: Create Snipe-IT data directory and its ownership
+  ansible.builtin.file:
+    path: "{{ snipeit_server_container_base_dir }}/{{ snipeit_server_container_name }}"
+    state: directory
+    owner: "{{ _snipeit_server_user }}"
+    group: "{{ _snipeit_server_group }}"
+    mode: '0755'
+    recurse: true
+  become: true
