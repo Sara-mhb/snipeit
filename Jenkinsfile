@@ -9,12 +9,12 @@ pipeline {
 
   environment {
     GITHUB_URL          = 'https://github.com/Sara-mhb/snipeit.git'
-    GITHUB_CRED_ID      = 'ssh-key-jenkins'  // You'll need to create this in Jenkins
+    GITHUB_CRED_ID      = 'ssh-key-jenkins'
     
     PYTHON_VENV         = '.venv'
     ROLE_NAME           = 'snipeit'
     
-    MM_CHANNEL          = 'jenkins@cicd'  // Change to your Mattermost channel
+    MM_CHANNEL          = 'jenkins@cicd'
     MM_INVENTORY        = 'Snipe-IT Ansible Role'
   }
 
@@ -68,3 +68,12 @@ pipeline {
 
   }
   
+  post {
+    failure {
+      echo "Build failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+    }
+    success {
+      echo "Build succeeded: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+    }
+  }
+}
