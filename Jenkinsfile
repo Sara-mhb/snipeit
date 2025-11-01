@@ -68,33 +68,12 @@ pipeline {
 
   }
   
-  post {
-    success {
-      deleteDir()
-      mattermostSend(
-        color: 'good',
-        channel: env.MM_CHANNEL,
-        text: "✅ Ansible Role ${env.ROLE_NAME} @ ${env.MM_INVENTORY}",
-        message: "${currentBuild.buildCauses[0].shortDescription} - Linting passed successfully! See (<${env.BUILD_URL}/console|Logs>)"
-      )
-    }
-
-    unstable {
-      mattermostSend(
-        color: 'warning',
-        channel: env.MM_CHANNEL,
-        text: "⚠️ Ansible Role ${env.ROLE_NAME} @ ${env.MM_INVENTORY}",
-        message: "${currentBuild.buildCauses[0].shortDescription} - Completed with warnings. See (<${env.BUILD_URL}/console|Logs>)"
-      )
-    }
-
+post {
     failure {
-      mattermostSend(
-        color: 'danger',
-        channel: env.MM_CHANNEL,
-        text: "❌ Ansible Role ${env.ROLE_NAME} @ ${env.MM_INVENTORY}",
-        message: "${currentBuild.buildCauses[0].shortDescription} - Linting failed! See (<${env.BUILD_URL}/console|Logs>)"
-      )
+        echo "Build failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+        // Mattermost notifications will be configured later
     }
-  }
+    success {
+        echo "Build succeeded: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+    }
 }
