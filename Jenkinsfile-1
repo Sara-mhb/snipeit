@@ -1,0 +1,16 @@
+pipeline {
+  agent {
+    docker {
+      image 'your-image:tag'
+    }
+  }
+  
+  stages {
+    stage('Build') {
+      steps {
+        sh 'echo "Running inside Docker container"'
+        sh 'python --version'
+      }
+    }
+  }
+}
