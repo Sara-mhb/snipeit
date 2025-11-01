@@ -1,0 +1,75 @@
+pipeline {
+  agent {
+    docker {
+      image 'jenkins-slave:ubuntu-2204-jre-21'
+      label 'agent-1'  // Use your existing agent
+    }
+  }
+  
+  options {
+    timestamps()
+    timeout(time: 5, unit: 'MINUTES')
+  }
+  
+  stages {
+    stage('Environment Check') {
+      steps {
+        echo '=== Checking environment ==='
+        sh 'java -version'
+        sh 'python3 --version'
+        sh 'which ansible || echo "Ansible not installed"'
+        sh 'pwd'
+      }
+    }
+    
+    stage('Create Files') {
+      steps {
+        echo '=== Creating test files ==='
+        sh 'echo "Hello from Jenkins" > hello.txt'
+        sh 'echo "Testing Docker" > test.txt'
+        sh 'ls -la'
+      }
+    }
+    
+    stage('Read Files') {
+      steps {
+        echo '=== Reading files ==='
+        sh 'cat hello.txt'
+        sh 'cat test.txt'
+      }
+    }
+    
+    stage('Python Test') {
+      steps {
+        echo '=== Running Python test ==='
+        sh '''
+          python3 << EOF
+import sys
+print("Python version:", sys.version)
+print("Hello from Python!")
+EOF
+        '''
+      }
+    }
+    
+    stage('Cleanup') {
+      steps {
+        echo '=== Cleaning up ==='
+        sh 'rm -f hello.txt test.txt'
+        sh 'ls -la'
+      }
+    }
+  }
+  
+  post {
+    success {
+      echo '✅ All stages completed successfully!'
+    }
+    failure {
+      echo '❌ Pipeline failed at some stage'
+    }
+    always {
+      echo '=== Pipeline finished ==='
+    }
+  }
+}
