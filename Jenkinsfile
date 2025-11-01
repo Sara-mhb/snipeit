@@ -70,30 +70,4 @@ pipeline {
     }
   }
   
-  post {
-    failure {
-      echo "Build failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
-    }
-    success {
-      echo "Build succeeded: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
-    }
-  }
-}
-stage('Setup Python Environment') {
-  steps {
-    echo "########################### Setting up Python virtual environment"
-    sh """
-      # Create venv without pip and install pip manually
-      python3 -m venv --without-pip ${env.PYTHON_VENV}
-      . ${env.PYTHON_VENV}/bin/activate
-      
-      # Download and install pip manually
-      curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-      python get-pip.py
-      rm get-pip.py
-      
-      pip install --upgrade pip
-      pip install ansible ansible-lint yamllint
-    """
-  }
-}
+
