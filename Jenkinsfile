@@ -11,7 +11,7 @@ pipeline {
     GITHUB_URL          = 'https://github.com/Sara-mhb/snipeit.git'
     GITHUB_CRED_ID      = 'ssh-key-jenkins'
     
-    PYTHON_VENV         = '.venv'
+    PYTHON_VENV         = '/home/jenkins/ansiblevenv'
     ROLE_NAME           = 'snipeit'
     
     MM_CHANNEL          = 'jenkins@cicd'
