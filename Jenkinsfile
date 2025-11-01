@@ -65,7 +65,6 @@ pipeline {
         """
       }
     }
-
   }
   
 post {
@@ -76,4 +75,5 @@ post {
     success {
         echo "Build succeeded: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
     }
+}
 }
