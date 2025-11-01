@@ -19,7 +19,6 @@ pipeline {
   }
 
   stages {
-
     stage('Clone Repository') {
       steps {
         echo "########################### Cloning ${env.ROLE_NAME} repository"
@@ -33,29 +32,6 @@ pipeline {
         ])
       }
     }
-
-    stage('Setup Python Environment') {
-      steps {
-        echo "########################### Setting up Python virtual environment"
-        sh """
-          python3 -m venv ${env.PYTHON_VENV}
-          . ${env.PYTHON_VENV}/bin/activate
-          pip install --upgrade pip
-          pip install ansible ansible-lint yamllint
-        """
-      }
-    }
-
-    stage('YAML Lint') {
-      steps {
-        echo "########################### Running YAML Lint"
-        sh """
-          . ${env.PYTHON_VENV}/bin/activate
-          yamllint . || true
-        """
-      }
-    }
-
     stage('Ansible Lint') {
       steps {
         echo "########################### Running Ansible Lint"
@@ -65,7 +41,6 @@ pipeline {
         """
       }
     }
-
   }
   
   post {
