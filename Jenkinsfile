@@ -9,13 +9,10 @@ pipeline {
 
   environment {
     GITHUB_URL          = 'https://github.com/Sara-mhb/snipeit.git'
-    GITHUB_CRED_ID      = 'ssh-key-jenkins'  // You'll need to create this in Jenkins
+    GITHUB_CRED_ID      = 'ssh-key-jenkins'
     
     PYTHON_VENV         = '.venv'
     ROLE_NAME           = 'snipeit'
-    
-    MM_CHANNEL          = 'jenkins@cicd'  // Change to your Mattermost channel
-    MM_INVENTORY        = 'Snipe-IT Ansible Role'
   }
 
   stages {
@@ -38,7 +35,13 @@ pipeline {
       steps {
         echo "########################### Setting up Python virtual environment"
         sh """
-          python3 -m venv ${env.PYTHON_VENV}
+          # Try to create virtual environment, if it fails install required packages
+          if ! python3 -m venv ${env.PYTHON_VENV} 2>/dev/null; then
+            echo "Virtual environment creation failed, installing python3-venv..."
+            apt update && apt install -y python3-venv
+            python3 -m venv ${env.PYTHON_VENV}
+          fi
+          
           . ${env.PYTHON_VENV}/bin/activate
           pip install --upgrade pip
           pip install ansible ansible-lint yamllint
@@ -67,13 +70,12 @@ pipeline {
     }
   }
   
-post {
+  post {
     failure {
-        echo "Build failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
-        // Mattermost notifications will be configured later
+      echo "Build failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
     }
     success {
-        echo "Build succeeded: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+      echo "Build succeeded: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
     }
-}
+  }
 }
