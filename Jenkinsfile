@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Clone') {
       steps {
-        git url: 'https://github.com/your-username/repo.git', branch: 'main'
+        git url: 'https://github.com/Sara-mhb/snipeit.git', branch: 'main'
       }
     }
     
