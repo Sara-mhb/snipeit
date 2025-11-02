@@ -1,54 +1,20 @@
-/* groovylint-disable LineLength, NestedBlockDepth */
 pipeline {
-  agent { label 'agent-1' }
-
-  options {
-    timestamps()
-    timeout(time: 15, unit: 'MINUTES')
-  }
-
-  environment {
-    GITHUB_URL          = 'https://github.com/Sara-mhb/snipeit.git'
-    GITHUB_CRED_ID      = 'ssh-key-jenkins'
-    
-    PYTHON_VENV         = '/home/jenkins/ansiblevenv'
-    ROLE_NAME           = 'snipeit'
-    
-    MM_CHANNEL          = 'jenkins@cicd'
-    MM_INVENTORY        = 'Snipe-IT Ansible Role'
-  }
-
-  stages {
-    stage('Clone Repository') {
-      steps {
-        echo "########################### Cloning ${env.ROLE_NAME} repository"
-        checkout([
-          $class: 'GitSCM',
-          branches: [[ name: "*/main" ]],
-          userRemoteConfigs: [[
-            url: env.GITHUB_URL,
-            credentialsId: env.GITHUB_CRED_ID
-          ]]
-        ])
-      }
-    }
-    stage('Ansible Lint') {
-      steps {
-        echo "########################### Running Ansible Lint"
-        sh """
-          . ${env.PYTHON_VENV}/bin/activate
-          ansible-lint .
-        """
-      }
-    }
-  }
+  agent { label 'jenkins-slave-1' }
   
-  post {
-    failure {
-      echo "Build failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+  stages {
+    stage('Clone') {
+      steps {
+        git url: 'https://github.com/your-username/repo.git', branch: 'main'
+      }
     }
-    success {
-      echo "Build succeeded: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+    
+    stage('Deploy to .20') {
+      steps {
+        sh '''
+          # Deploy to the other VM
+          scp -r * jenkins@10.137.208.20:/var/www/html/
+        '''
+      }
     }
   }
 }
