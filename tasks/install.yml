@@ -3,10 +3,8 @@
 - name: Install required system packages
   ansible.builtin.apt:
     name:
-      - docker.io
-      - php8.1
       - python
-      - docker-compose
+
     state: present
   become: true
   tags: install
