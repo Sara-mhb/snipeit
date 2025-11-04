@@ -15,10 +15,6 @@
   ansible.builtin.import_tasks: users.yml
   tags: users
 
-- name: Include container deployment
-  ansible.builtin.import_tasks: vars/container.yml
-  tags: container
-
 
 
  
