@@ -1,6 +1,6 @@
 /* groovylint-disable LineLength, NestedBlockDepth */
 pipeline {
-  agent { label 'agent-1' }
+  agent { label 'agent' }
 
   options {
     timestamps()
@@ -10,7 +10,7 @@ pipeline {
   environment {
     GITHUB_REPO_URL     = 'https://github.com/Sara-mhb/snipeit.git'
     REPO_BRANCH         = 'main'
-    ANSIBLE_BIN         = '/home/jenkins/ansiblevenv/bin'
+    ANSIBLE_BIN         = '/home/jenkins/ansiblevenv'
     INVENTORY_PATH      = 'inventory'
     PROJECT_NAME        = 'Snipe-IT Deployment'
   }
