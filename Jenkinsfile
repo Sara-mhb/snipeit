@@ -21,14 +21,6 @@ pipeline {
     PROJECT_NAME        = 'Snipe-IT Deployment'
   }
 
- parameters {
-    string(
-      name: 'ANSIBLE_PARAMS', 
-      defaultValue: '', 
-      description: 'Additional Ansible parameters (e.g., --tags install, --limit dev-2-db)'
-    )
-  }
-
   stages {
 
     stage('Clone Repository') {
