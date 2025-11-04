@@ -1,0 +1,13 @@
+
+- name: docker-container
+  src: https://codebase.vaslapp.com/devops/vasl/ansible/roles/docker-container.git
+  scm: git
+  version: main
+- name: mysql-server-docker
+  src: https://codebase.vaslapp.com/devops/vasl/ansible/roles/mysql-server-docker
+  scm: git
+  version: main
+- name: snipeit-server-docker
+  src: https://codebase.vaslapp.com/devops/vasl/ansible/roles/snipeit-server-docker
+  scm: git
+  version: main  

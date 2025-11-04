@@ -1,0 +1,9 @@
+---
+- name: Install and configure snipeit as a docker container
+  hosts: snipeit_server_docker
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Include role to setup snipeit server docker
+      ansible.builtin.include_role:
+        name: "snipeit-server-docker"
