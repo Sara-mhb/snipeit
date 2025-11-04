@@ -19,7 +19,7 @@ snipeit_server_container_recreate: false
 # Generate this value using: docker run --rm snipe/snipe-it:v8.2.1-alpine
 snipeit_app_key: "base64:LySUxE/6QbccxeXFDfcV5MYDgzLcxDPQSOMp3xisRjY="
 snipeit_host_port: 8080
-
+snipeit_app_url: "http://10.137.208.20:8080"
 
 # MySQL connection settings  
 mysql_host: 'mysql'   # container name
