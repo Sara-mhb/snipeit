@@ -10,8 +10,7 @@ pipeline {
   environment {
     GITHUB_REPO_URL     = 'https://github.com/Sara-mhb/snipeit.git'
     REPO_BRANCH         = 'main'
-    ANSIBLE_VENV        = '/home/jenkins/ansiblevenv'
-    PLAYBOOK_NAME       = 'snipeit'
+    ANSIBLE_BIN         = '/home/jenkins/ansiblevenv/bin'
     INVENTORY_PATH      = 'inventory'
     PROJECT_NAME        = 'Snipe-IT Deployment'
   }
@@ -34,10 +33,8 @@ pipeline {
     stage('Verify Inventory') {
       steps {
         echo "########################### Verifying Ansible Inventory"
-        sh """#!/bin/bash
-          set -e
-          source ${env.ANSIBLE_VENV}/bin/activate
-          ansible-inventory -i ${env.INVENTORY_PATH} --list
+        sh """
+          ${env.ANSIBLE_BIN}/ansible-inventory -i ${env.INVENTORY_PATH} --list
         """
       }
     }
@@ -45,12 +42,8 @@ pipeline {
     stage('Run Playbook') {
       steps {
         echo "########################### Executing ${env.PROJECT_NAME} playbook"
-        sh """#!/bin/bash
-          set -e
-          source ${env.ANSIBLE_VENV}/bin/activate
-          ansible-playbook \
-            -i ${env.INVENTORY_PATH} \
-            playbook.yml
+        sh """
+          ${env.ANSIBLE_BIN}/ansible-playbook -i ${env.INVENTORY_PATH} playbook.yml
         """
       }
     }
