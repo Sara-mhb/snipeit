@@ -1,8 +1,8 @@
 ---
 # defaults file for snipeit
 
-snipeit_server_container_image: 'artifacts.vaslapp.com/share/vasl/snipeit'
-snipeit_server_container_image_tag: 'v8.2.1'
+snipeit_server_container_image: 'snipe/snipe-it'
+snipeit_server_container_image_tag: 'v8.3.1-alpine'
 snipeit_server_container_name: "snipeit-server"
 snipeit_server_container: {}
 snipeit_server_container_base_dir: "/mnt/containers"
