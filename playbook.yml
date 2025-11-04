@@ -4,6 +4,5 @@
   become: true
   gather_facts: true
   tasks:
-    - name: Include role to setup snipeit server docker
-      ansible.builtin.include_role:
-        name: "snipeit-server-docker"
+    - name: Include tasks from local tasks directory
+      include_tasks: tasks/main.yml
