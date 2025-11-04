@@ -13,7 +13,7 @@ pipeline {
     REPO_BRANCH         = 'main'  // or 'master' - check your default branch name
     
     // Ansible configuration
-    ANSIBLE_VENV        = '/home/jenkins/ansiblevenv'
+    ANSIBLE_VENV        = '/home/jenkins/ansiblevenv/bin/activate'
     PLAYBOOK_NAME       = 'snipeit'
     INVENTORY_PATH      = 'inventory'  // Path to your inventory file in the repo
     
