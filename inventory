@@ -7,7 +7,7 @@ all:
   children:
     snipeit_server_docker:
       hosts:
-        dev-3:
-          ansible_host: 10.137.208.70
+        dev-2:
+          ansible_host: 10.137.208.20
 
 
