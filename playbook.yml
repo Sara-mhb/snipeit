@@ -3,6 +3,10 @@
   hosts: snipeit_server_docker
   become: true
   gather_facts: true
+
+  vars_files:
+    - vars/container.yml   # Load variables from here
+  
   tasks:
-    - name: Include tasks from local tasks directory
-      include_tasks: tasks/main.yml
+    - name: Include role tasks
+      include_tasks: tasks/main.yml   # Include tasks from here
