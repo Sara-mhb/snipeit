@@ -9,6 +9,5 @@ all:
       hosts:
         dev-2-db:
           ansible_host: 10.137.208.70
-        dev-3-db:
-          ansible_host: 10.137.208.20
+
 
