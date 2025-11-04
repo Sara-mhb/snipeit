@@ -31,19 +31,6 @@ pipeline {
       }
     }
 
-      }
-      steps {
-        echo "########################### Installing Ansible Roles from requirements.yml"
-        sh """#!/bin/bash
-          set -e
-          source ${env.ANSIBLE_VENV}/bin/activate
-          ansible-galaxy install --force \
-            -r requirements.yml \
-            -p roles
-        """
-      }
-    }
-
     stage('Verify Inventory') {
       steps {
         echo "########################### Verifying Ansible Inventory"
