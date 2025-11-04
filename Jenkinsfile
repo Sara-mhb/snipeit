@@ -34,7 +34,7 @@ pipeline {
       steps {
         echo "########################### Verifying Ansible Inventory"
         sh """
-          ${env.ANSIBLE_BIN}/ansible-inventory -i ${env.INVENTORY_PATH}
+          ${env.ANSIBLE_BIN}/ansible-inventory -i ${env.INVENTORY_PATH} --list
         """
       }
     }
