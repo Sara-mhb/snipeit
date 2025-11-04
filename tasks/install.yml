@@ -3,7 +3,7 @@
 - name: Install required system packages
   ansible.builtin.apt:
     name:
-      - python
+      - python3
 
     state: present
   become: true
