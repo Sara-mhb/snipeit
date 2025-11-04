@@ -10,7 +10,7 @@ pipeline {
   environment {
     GITHUB_REPO_URL     = 'https://github.com/Sara-mhb/snipeit.git'
     REPO_BRANCH         = 'main'
-    ANSIBLE_BIN         = '/home/jenkins/ansiblevenv'
+    ANSIBLE_BIN         = '/home/jenkins/ansiblevenv/bin/'
     INVENTORY_PATH      = 'inventory'
     PROJECT_NAME        = 'Snipe-IT Deployment'
   }
