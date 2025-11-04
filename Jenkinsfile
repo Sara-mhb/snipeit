@@ -8,18 +8,14 @@ pipeline {
   }
 
   environment {
-   // Your GitHub repository details (public - no credentials needed)
     GITHUB_REPO_URL     = 'https://github.com/Sara-mhb/snipeit.git'
-    REPO_BRANCH         = 'main'  // or 'master' - check your default branch name
-    
-    // Ansible configuration
+    REPO_BRANCH         = 'main'
     ANSIBLE_VENV        = '/home/jenkins/ansiblevenv'
     PLAYBOOK_NAME       = 'snipeit'
-    INVENTORY_PATH      = 'inventory'  // Path to your inventory file in the repo
-    
-    // Optional: Monitoring/notification settings (customize or remove)
+    INVENTORY_PATH      = 'inventory'
     PROJECT_NAME        = 'Snipe-IT Deployment'
   }
+
 
   stages {
 
@@ -31,7 +27,6 @@ pipeline {
           branches: [[ name: "*/${env.REPO_BRANCH}" ]],
           userRemoteConfigs: [[
             url: env.GITHUB_REPO_URL
-            // NO credentialsId needed for public repos!
           ]]
         ])
       }
@@ -45,8 +40,8 @@ pipeline {
       }
       steps {
         echo "########################### Installing Ansible Roles from requirements.yml"
-        sh """
-          . ${env.ANSIBLE_VENV}/bin/activate
+        sh """#!/bin/bash
+          source ${env.ANSIBLE_VENV}/bin/activate
           ansible-galaxy install --force \
             -r requirements.yml \
             -p roles
@@ -57,8 +52,8 @@ pipeline {
     stage('Verify Inventory') {
       steps {
         echo "########################### Verifying Ansible Inventory"
-        sh """
-          . ${env.ANSIBLE_VENV}/bin/activate
+        sh """#!/bin/bash
+          source ${env.ANSIBLE_VENV}/bin/activate
           ansible-inventory -i ${env.INVENTORY_PATH} --list
         """
       }
@@ -67,8 +62,8 @@ pipeline {
     stage('Run Playbook') {
       steps {
         echo "########################### Executing ${env.PROJECT_NAME} playbook"
-        sh """
-          . ${env.ANSIBLE_VENV}/bin/activate
+        sh """#!/bin/bash
+          source ${env.ANSIBLE_VENV}/bin/activate
           ansible-playbook \
             -i ${env.INVENTORY_PATH} \
             playbook.yml \
