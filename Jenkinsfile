@@ -16,7 +16,6 @@ pipeline {
     PROJECT_NAME        = 'Snipe-IT Deployment'
   }
 
-
   stages {
 
     stage('Clone Repository') {
@@ -32,15 +31,11 @@ pipeline {
       }
     }
 
-    stage('Install Ansible Roles') {
-      when {
-        expression { 
-          fileExists('requirements.yml') 
-        }
       }
       steps {
         echo "########################### Installing Ansible Roles from requirements.yml"
         sh """#!/bin/bash
+          set -e
           source ${env.ANSIBLE_VENV}/bin/activate
           ansible-galaxy install --force \
             -r requirements.yml \
@@ -53,6 +48,7 @@ pipeline {
       steps {
         echo "########################### Verifying Ansible Inventory"
         sh """#!/bin/bash
+          set -e
           source ${env.ANSIBLE_VENV}/bin/activate
           ansible-inventory -i ${env.INVENTORY_PATH} --list
         """
@@ -63,11 +59,11 @@ pipeline {
       steps {
         echo "########################### Executing ${env.PROJECT_NAME} playbook"
         sh """#!/bin/bash
+          set -e
           source ${env.ANSIBLE_VENV}/bin/activate
           ansible-playbook \
             -i ${env.INVENTORY_PATH} \
-            playbook.yml \
-            ${params.ANSIBLE_PARAMS}
+            playbook.yml
         """
       }
     }
